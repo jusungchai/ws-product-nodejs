@@ -1,7 +1,12 @@
+require('dotenv').config()
 const express = require('express')
 const pg = require('pg')
+const limiter = require('./helpers/limiter')
 
 const app = express()
+
+app.use(limiter)
+
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
 const pool = new pg.Pool()
