@@ -4,7 +4,7 @@ const rateLimit = require('./rateLimit')
 //Due to unique IP check, saving to object may not be optimal for scaling and should be added to a database
 const limiter = (req, res, next) => {
   const timeOut = 10; //time out interval in seconds
-  const requestLimit = 3; //api request limiter
+  const requestLimit = 10; //api request limiter
 
   if (!rateLimit.users[req.ip]){
     rateLimit.users[req.ip] = {      
