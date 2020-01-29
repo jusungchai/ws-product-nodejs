@@ -2,9 +2,11 @@ require('dotenv').config()
 const express = require('express')
 const pg = require('pg')
 const limiter = require('./helpers/limiter')
+const cors = require('cors')
 
 const app = express()
 
+app.use(cors())
 app.use(limiter)
 
 // configs come from standard PostgreSQL env vars
