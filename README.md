@@ -15,5 +15,5 @@ Get Started
 ---
 - https://jay-eq-api-limiter.herokuapp.com/
 
-Author: EQ Works
-Contributer: Jay Chai
+- Author: EQ Works
+- Contributer: Jay Chai
