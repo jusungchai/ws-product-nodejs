@@ -105,6 +105,30 @@ app.get('/stats/daily1', (req, res, next) => {
   return next()
 }, queryHandler)
 
+app.get('/events/hourly1', (req, res, next) => {
+  req.sqlQuery = `
+    SELECT public.poi.name, date, hour, events
+    FROM public.hourly_events
+    JOIN public.poi 
+      ON public.poi.poi_id=public.hourly_events.poi_id
+    ORDER BY date, hour
+    LIMIT 168;
+  `
+  return next()
+}, queryHandler)
+
+app.get('/stats/hourly1', (req, res, next) => {
+  req.sqlQuery = `
+    SELECT public.poi.name, date, hour, impressions, clicks, revenue
+    FROM public.hourly_stats
+    JOIN public.poi
+      ON public.poi.poi_id=public.hourly_stats.poi_id
+    ORDER BY date, hour
+    LIMIT 168;
+  `
+  return next()
+}, queryHandler)
+
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
     console.error(err)
