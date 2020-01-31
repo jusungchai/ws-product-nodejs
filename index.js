@@ -129,6 +129,24 @@ app.get('/stats/hourly1', (req, res, next) => {
   return next()
 }, queryHandler)
 
+app.get('/totalMetrics', (req, res, next) => {
+  req.sqlQuery = `
+    SELECT public.poi.name, lat, lon,
+      SUM(impressions) as impressions, 
+      SUM(clicks) as clicks, 
+      SUM(revenue) as revenue,
+      SUM(events) as events
+    FROM public.hourly_stats
+    JOIN public.poi
+      ON public.poi.poi_id=public.hourly_stats.poi_id
+    JOIN public.hourly_events
+      ON public.hourly_events.poi_id = public.poi.poi_id
+    GROUP BY poi.name, poi.lat, poi.lon, public.poi.poi_id
+    ORDER BY public.poi.poi_id;
+  `
+  return next()
+}, queryHandler)
+
 app.listen(process.env.PORT || 5555, (err) => {
   if (err) {
     console.error(err)
